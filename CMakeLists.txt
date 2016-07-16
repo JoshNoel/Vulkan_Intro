@@ -14,7 +14,8 @@ endfunction(prepend)
 
 #DEVELOPMENT ENV VARIABLES
 #WindowsHelper Library
-find_path(windows_helper_include_dir winhelp/WindowsHelper.h)
+find_path(windows_helper_include_dir NAMES winhelp/WindowsHelper.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/include)
+find_library(windows_helper_library WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper)
 message(STATUS "Windows Helper include dir: " ${windows_helper_include_dir})
 
 set(TARGET_NAME Vulkan_Intro)
@@ -28,3 +29,4 @@ include_directories(${additional_include_dirs} ${windows_helper_include_dir})
 
 add_executable(${TARGET_NAME} ${SRC_FILE_LIST} ${HEADER_FILE_LIST})
 set_target_properties(${TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+target_link_libraries(${TARGET_NAME} ${windows_helper_library})

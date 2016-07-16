@@ -1,3 +1,4 @@
 [submodule "lib/WindowsHelper"]
 	path = lib/WindowsHelper
 	url = https://github.com/joshnoel/windowshelper
+	branch = master
