@@ -12,13 +12,14 @@ function(prepend strings prefix)
 	set(${strings} ${swap_tmp} PARENT_SCOPE)
 endfunction(prepend)
 
+set(TARGET_NAME Vulkan_Intro)
+project(${TARGET_NAME})
 #DEVELOPMENT ENV VARIABLES
 #WindowsHelper Library
 find_path(windows_helper_include_dir NAMES winhelp/WindowsHelper.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/include)
-find_library(windows_helper_library WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper)
+find_library(windows_helper_library_debug WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build/bin/Debug)
+find_library(windows_helper_library_release WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build/bin/Release)
 
-set(TARGET_NAME Vulkan_Intro)
-project(${TARGET_NAME})
 
 #add include directories to variable in subdirectories, add to master after
 set(additional_include_dirs "")
@@ -28,4 +29,6 @@ include_directories(${additional_include_dirs} ${windows_helper_include_dir})
 
 add_executable(${TARGET_NAME} ${SRC_FILE_LIST} ${HEADER_FILE_LIST})
 set_target_properties(${TARGET_NAME} PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
-target_link_libraries(${TARGET_NAME} ${windows_helper_library})
+target_link_libraries(${TARGET_NAME} debug ${windows_helper_library_debug})
+target_link_libraries(${TARGET_NAME} optimized ${windows_helper_library_release})
+add_definitions(-DVK_NO_PROTOTYPES)
