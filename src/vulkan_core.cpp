@@ -17,7 +17,8 @@ VulkanCore::VulkanCore()
 
 void VulkanCore::InitFunctions()
 {
-	
+
+#include "vulint/vulkan_func_list.h"
 }
 
 

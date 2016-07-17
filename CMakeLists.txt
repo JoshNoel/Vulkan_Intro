@@ -16,7 +16,6 @@ endfunction(prepend)
 #WindowsHelper Library
 find_path(windows_helper_include_dir NAMES winhelp/WindowsHelper.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/include)
 find_library(windows_helper_library WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper)
-message(STATUS "Windows Helper include dir: " ${windows_helper_include_dir})
 
 set(TARGET_NAME Vulkan_Intro)
 project(${TARGET_NAME})
