@@ -2,7 +2,10 @@ cmake_minimum_required(VERSION 3.6)
 
 set(SRC_FILE_LIST main.cpp
 				  vulkan_core.cpp
-				  vulkan_funcs.cpp)
+				  vulkan_funcs.cpp
+				  logical_device.cpp
+				  physical_device.cpp
+				  device_manager.cpp)
 				  
 prepend(SRC_FILE_LIST ${CMAKE_CURRENT_SOURCE_DIR})
 

@@ -6,6 +6,7 @@
 #include <array>
 #include <string>
 #include <vector>
+#include "vulint/device_manager.h"
 
 /**
 * Handles dynamic loading of vulkan library and functions
@@ -38,10 +39,15 @@ public:
 	/**
 	* Initializes devices
 	* @param max_devices maximum number of devices to query. If 0 all available devices will be queried
+	* @param max_queues maximum number of queue families to query. If 0 all available devices will be queried
 	*/
 	bool InitDevices(const int max_devices, bool print_device_properties, const int max_queues, bool print_queue_properties);
 
 	//TODO: Create a function that will create a logical device based off of a set of parameters
+	/**
+	* Creates a logical device based off of parameters
+	*/
+	bool createLogicalDevice();
 
 private:
 	/**
@@ -49,17 +55,17 @@ private:
 	*/
 	HMODULE vulkan_library_;
 
+	/**
+	* Handles lifetime of all logical devices
+	*/
+	DeviceManager device_manager_;
+
+	//useful for mainting stability of function loading macro
 #define VULKAN_INSTANCE_VAR_NAME vulkan_instance_
 	/**
 	* Handle to VKInstance
 	*/
 	VkInstance VULKAN_INSTANCE_VAR_NAME;
-
-	/**
-	* Vector holding vulkan physical device handles
-	*/
-	std::vector<VkPhysicalDevice> physical_devices_vector_;
-	std::vector<VkPhysicalDeviceProperties> physical_device_properties_vector_;
 
 	/**
 	* Sets exported function pointer variables defined in vulkan_funcs.cpp

@@ -24,6 +24,8 @@ VULKAN_INSTANCE_FUNC(vkDestroyInstance)
 VULKAN_INSTANCE_FUNC(vkEnumeratePhysicalDevices)
 VULKAN_INSTANCE_FUNC(vkGetPhysicalDeviceProperties)
 VULKAN_INSTANCE_FUNC(vkGetPhysicalDeviceQueueFamilyProperties)
+VULKAN_INSTANCE_FUNC(vkCreateDevice)
+VULKAN_INSTANCE_FUNC(vkDestroyDevice)
 
 
 #undef VULKAN_INSTANCE_FUNC

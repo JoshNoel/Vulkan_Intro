@@ -12,6 +12,7 @@
 //	but this is not true with dynamic linking
 
 VulkanCore::VulkanCore()
+	: device_manager_()
 {
 	vulkan_library_ = LoadLibrary("vulkan-1.dll");
 	InitExportedFunctions();
@@ -100,51 +101,9 @@ bool VulkanCore::InitInstance(const std::string& app_name, std::array<int, 3> ap
 
 bool VulkanCore::InitDevices(const int max_devices, bool print_device_info, const int max_queues, bool print_queue_properties)
 {
-	unsigned int num_devices;
-	if (max_devices <= 0)
-	{
-		if (vkEnumeratePhysicalDevices(vulkan_instance_, &num_devices, nullptr) != VK_SUCCESS)
-		{
-			std::cerr << "Error getting number of physical devices" << std::endl;
-			return false;
-		}
-		if (num_devices <= 0)
-		{
-			std::cerr << "No physical devices found!" << std::endl;
-			return false;
-		}
-	}
-	else
-		num_devices = max_devices;
+	device_manager_.GetPhysicalDevices(vulkan_instance_, max_devices, print_device_info);
 
-	physical_devices_vector_.resize(num_devices);
-	if (vkEnumeratePhysicalDevices(vulkan_instance_, &num_devices, physical_devices_vector_.data()) != VK_SUCCESS)
-	{
-		std::cerr << "Error enumerating physical devices" << std::endl;
-		return false;
-	}
-	
-	std::string device_type_names[] = { "OTHER", "INTEGRATE GPU", "DISCRETE GPU", "VIRTUAL GPU", "CPU" };
-
-	for(auto it = physical_devices_vector_.begin(); it != physical_devices_vector_.end(); it++)
-	{
-		VkPhysicalDeviceProperties properties;
-		vkGetPhysicalDeviceProperties(*it, &properties);
-		physical_device_properties_vector_.push_back(properties);
-		if (print_device_info)
-		{
-			std::cout << "DEVICE: " << properties.deviceName << " {" << std::endl;
-			std::cout << "Device ID: " << properties.deviceID << std::endl;
-			std::cout << "Device Type: " << device_type_names[properties.deviceType] << std::endl;
-			std::cout << "Encoded Device API Version: " << properties.apiVersion << std::endl;
-			std::cout << "Current API Version: " << VK_API_VERSION_1_0 << std::endl;
-			std::cout << "Vendor ID: " << properties.vendorID << std::endl;
-			std::cout << "Driver Version: " << properties.driverVersion << std::endl;
-			std::cout << "}" << std::endl << std::endl;
-		}
-	}
-
-	for(auto it = physical_devices_vector_.begin(); it != physical_devices_vector_.end(); it++)
+	/*for(auto it = physical_devices_vector_.begin(); it != physical_devices_vector_.end(); ++it)
 	{
 		unsigned int num_queues;
 		if (max_queues <= 0)
@@ -165,7 +124,7 @@ bool VulkanCore::InitDevices(const int max_devices, bool print_device_info, cons
 		
 		if(print_queue_properties)
 		{
-			for (auto queue_it = queue_family_properties_vector.begin(); queue_it != queue_family_properties_vector.end(); queue_it++)
+			for (auto queue_it = queue_family_properties_vector.begin(); queue_it != queue_family_properties_vector.end(); ++queue_it)
 			{
 				std::string types = "";
 				if (queue_it->queueFlags & VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT)
@@ -187,7 +146,7 @@ bool VulkanCore::InitDevices(const int max_devices, bool print_device_info, cons
 				std::cout << "}" << std::endl << std::endl;	
 			}
 		}
-	}
+	}*/
 
 	return true;
 }
