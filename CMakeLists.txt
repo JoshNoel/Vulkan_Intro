@@ -17,8 +17,8 @@ project(${TARGET_NAME})
 #DEVELOPMENT ENV VARIABLES
 #WindowsHelper Library
 find_path(windows_helper_include_dir NAMES winhelp/WindowsHelper.h PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/include)
-find_library(windows_helper_library_debug WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build/bin/Debug)
-find_library(windows_helper_library_release WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build/bin/Release)
+find_library(windows_helper_library_debug WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build64/bin/Debug)
+find_library(windows_helper_library_release WindowsHelper PATHS ${CMAKE_CURRENT_SOURCE_DIR}/lib/WindowsHelper/build64/bin/Release)
 
 
 #add include directories to variable in subdirectories, add to master after

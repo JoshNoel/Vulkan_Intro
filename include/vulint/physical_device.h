@@ -21,6 +21,11 @@ public:
 	*/
 	void SetProperties(const VkPhysicalDeviceProperties& properties);
 
+	/**
+	* Returns const reference to device properties
+	*/
+	const VkPhysicalDeviceProperties& device_properties() const { return device_properties_; };
+
 private:
 	VkPhysicalDeviceProperties device_properties_;
 	VkPhysicalDevice device_handle_;

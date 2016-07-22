@@ -68,3 +68,8 @@ bool DeviceManager::GetPhysicalDevices(const VkInstance& instance, unsigned int 
 
 	return true;
 }
+
+bool DeviceManager::CreateLogicalDevice(const VkInstance& instance)
+{
+	return true;	
+}

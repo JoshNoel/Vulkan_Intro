@@ -2,6 +2,7 @@
 #define VULKAN_INTRO_DEVICEMANAGER_H
 
 #include "vulint/physical_device.h"
+#include "vulint/logical_device.h"
 #include <vector>
 
 class DeviceManager
@@ -45,5 +46,10 @@ private:
 	* Holds physical devices found through GetPhysicalDevices
 	*/
 	std::vector<PhysicalDevice> physical_devices_vector_;
+	
+	/**
+	* Holds logical devices created through CreateLogicalDevice
+	*/
+	std::vector<LogicalDevice> logical_devices_vector_;
 };
 #endif
