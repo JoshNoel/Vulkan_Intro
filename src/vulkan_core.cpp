@@ -101,52 +101,8 @@ bool VulkanCore::InitInstance(const std::string& app_name, std::array<int, 3> ap
 
 bool VulkanCore::InitDevices(const int max_devices, bool print_device_info, const int max_queues, bool print_queue_properties)
 {
-	device_manager_.GetPhysicalDevices(vulkan_instance_, max_devices, print_device_info);
-
-	/*for(auto it = physical_devices_vector_.begin(); it != physical_devices_vector_.end(); ++it)
-	{
-		unsigned int num_queues;
-		if (max_queues <= 0)
-		{
-			vkGetPhysicalDeviceQueueFamilyProperties(*it, &num_queues, nullptr);
-			if (num_queues <= 0)
-			{
-				std::cerr << "Error getting number of queue families for physical device: " <<
-					physical_device_properties_vector_.at(it - physical_devices_vector_.begin()).deviceName << std::endl;
-			}
-		}
-		else
-			num_queues = max_queues;
-
-		std::vector<VkQueueFamilyProperties> queue_family_properties_vector;
-		queue_family_properties_vector.resize(num_queues);
-		vkGetPhysicalDeviceQueueFamilyProperties(*it, &num_queues, queue_family_properties_vector.data());
-		
-		if(print_queue_properties)
-		{
-			for (auto queue_it = queue_family_properties_vector.begin(); queue_it != queue_family_properties_vector.end(); ++queue_it)
-			{
-				std::string types = "";
-				if (queue_it->queueFlags & VkQueueFlagBits::VK_QUEUE_COMPUTE_BIT)
-					types += "Compute, ";
-				if (queue_it->queueFlags & VkQueueFlagBits::VK_QUEUE_GRAPHICS_BIT)
-					types += "Graphics, ";
-				if (queue_it->queueFlags & VkQueueFlagBits::VK_QUEUE_TRANSFER_BIT)
-					types += "Transfer, ";
-				if (queue_it->queueFlags & VkQueueFlagBits::VK_QUEUE_SPARSE_BINDING_BIT)
-					types += "Sparse Binding, ";
-				if (types != "")
-					types.erase(types.length() - 2, std::string::npos);
-				std::cout << "QUEUE FAMILY " << physical_device_properties_vector_.at(it - physical_devices_vector_.begin()).deviceName << " {" << std::endl;
-				std::cout << "Queue Type: " << types << std::endl;
-				std::cout << "Queue Count: " << queue_it->queueCount << std::endl;
-				std::cout << "Timestamp Valid Bits: " << queue_it->timestampValidBits << std::endl;
-				std::cout << "Minimum Granularity: " << "(w,h,d)   (" << queue_it->minImageTransferGranularity.width << ", "
-					<< queue_it->minImageTransferGranularity.height << ", " << queue_it->minImageTransferGranularity.depth << ")"<< std::endl;
-				std::cout << "}" << std::endl << std::endl;	
-			}
-		}
-	}*/
+	device_manager_.UpdatePhysicalDevices(vulkan_instance_, max_devices, print_device_info, max_queues, print_queue_properties);
+	device_manager_.GetPhysicalDevices(required_queue_flags);
 
 	return true;
 }

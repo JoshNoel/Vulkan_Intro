@@ -39,9 +39,9 @@ public:
 	/**
 	* Initializes devices
 	* @param max_devices maximum number of devices to query. If 0 all available devices will be queried
-	* @param max_queues maximum number of queue families to query. If 0 all available devices will be queried
+	* @param max_queues maximum number of queue families to query. If 0 all available queue families will be queried
 	*/
-	bool InitDevices(const int max_devices, bool print_device_properties, const int max_queues, bool print_queue_properties);
+	bool InitDevices(const int max_devices, bool print_device_properties, const int max_queues, bool print_queue_properties, VkQueueFlags required_queue_flags);
 
 	//TODO: Create a function that will create a logical device based off of a set of parameters
 	/**
